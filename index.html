@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atif Lodhi — Medical Device Systems Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --ink:      #232a32;
+    --ink2:     #333f4a;
+    --ac:       #74879a;
+    --ac2:      #56697a;
+    --ac3:      #93a7b5;
+    --ac-light: #e9ebec;
+    --ac-pale:  #f1f2f2;
+    --muted:    #767f87;
+    --rule:     #e1e3e5;
+    --paper:    #eeeeec;
+    --white:    #fbfbfa;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .bd-dark  { background: #232a32; color: #aebcc4; }
+  .bd-blue  { background: #e9ebec; color: #333f4a; border: 1px solid #d4d8db; }
+  .bd-gray  { background: #eef0f0; color: #565f68; border: 1px solid #e1e3e5; }
+
+  /* ── Header ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 72px 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: 'SE';
+    position: absolute;
+    right: -12px; bottom: -28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px; font-weight: 900;
+    color: rgba(255,255,255,0.025);
+    line-height: 1; pointer-events: none;
+  }
+  .h-inner {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #93a7b5;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .h-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 6vw, 58px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .h-name span { color: #93a7b5; }
+  .h-sub {
+    margin-top: 14px;
+    font-size: 13.5px;
+    color: #9aa9b1;
+    max-width: 520px;
+    line-height: 1.75;
+  }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .cred-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(116,135,154,0.16);
+    border: 1px solid rgba(147,167,181,0.28);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 10px;
+    color: #9aa9b1;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cred-pill::before { content: '◆'; font-size: 7px; color: #93a7b5; }
+  .h-meta { text-align: right; }
+  .ln-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    border-radius: 6px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .ln-btn:hover { border-color: #93a7b5; color: #a9b8c0; }
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 18px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: #9aa9b1;
+  }
+  .contact-item svg { opacity: 0.65; flex-shrink: 0; }
+
+  /* ── Metrics strip ── */
+  .metrics-strip { background: #333f4a; padding: 0 48px; }
+  .metrics-inner {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid rgba(255,255,255,0.07);
+  }
+  .mc { padding: 22px 24px; border-right: 1px solid rgba(255,255,255,0.07); }
+  .mc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 900;
+    color: #bcc7cd; line-height: 1; margin-bottom: 4px;
+  }
+  .mc-lbl { font-size: 10px; color: #93a7b5; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-inner a {
+    padding: 14px 20px;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    font-weight: 500;
+  }
+  .nav-inner a:hover { color: var(--ink); border-bottom-color: var(--ac); }
+
+  /* ── Container ── */
+  .container { max-width: 1000px; margin: auto; padding: 52px 24px 88px; }
+  section { margin-bottom: 56px; }
+
+  /* ── Section labels ── */
+  .sec-label { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .sec-num { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--ac); font-weight: 700; }
+  .sec-label h2 { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  /* ── Summary ── */
+  .sum-banner {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sum-banner::after {
+    content: '\201C';
+    position: absolute; right: 28px; top: -10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px; font-weight: 900;
+    color: rgba(116,135,154,0.07); line-height: 1; pointer-events: none;
+  }
+  .sum-banner p { font-size: 14px; color: #b7bec3; line-height: 1.88; }
+  .sum-banner p + p { margin-top: 12px; }
+  .sum-banner p strong { color: #a9b8c0; font-weight: 500; }
+  .sum-byline {
+    margin-top: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #565e65;
+  }
+
+  /* ── Impact ── */
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 12px; }
+  .stat-card {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 26px 22px;
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-2px); }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 900;
+    color: #a9b8c0; line-height: 1; letter-spacing: -0.02em;
+  }
+  .stat-lbl { margin-top: 7px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #9aa9b1; }
+  .stat-note { margin-top: 6px; font-size: 11px; color: #6b7780; line-height: 1.45; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; }
+  .tl-line { position: absolute; left: 120px; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+  .tl-item { display: grid; grid-template-columns: 110px 30px 1fr; gap: 0 14px; margin-bottom: 12px; align-items: start; }
+  .tl-date { text-align: right; padding-top: 20px; font-size: 10px; color: var(--muted); letter-spacing: 0.03em; line-height: 1.45; font-family: 'DM Mono', monospace; }
+  .tl-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 22px; }
+  .tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ac); border: 2px solid var(--paper); flex-shrink: 0; z-index: 1; }
+  .tl-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--ac);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 22px;
+    margin-bottom: 4px;
+    transition: border-left-color 0.2s, box-shadow 0.2s;
+  }
+  .tl-card:hover { border-left-color: var(--ink2); box-shadow: 0 3px 12px rgba(0,0,0,0.045); }
+  .tl-role { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .tl-co { font-size: 12.5px; color: var(--ac2); font-weight: 600; margin-bottom: 9px; }
+  .tl-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 11px; }
+  .tl-body { font-size: 13px; color: #4b5563; line-height: 1.75; margin-bottom: 12px; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tl-tag { font-size: 10px; background: #eef0f0; color: #565f68; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
+
+  /* ── Competencies ── */
+  .comp-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 13px; }
+  .comp-cluster {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .comp-cluster-title { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ac); font-weight: 600; margin-bottom: 13px; }
+  .comp-item { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--ink); padding: 5px 0; border-bottom: 1px solid var(--rule); }
+  .comp-item:last-child { border-bottom: none; }
+  .comp-dot { width: 5px; height: 5px; background: var(--ac); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Spotlights ── */
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .case-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .case-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+  .case-accent { height: 3px; background: var(--ac); }
+  .case-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .case-hd { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 10px; }
+  .case-icon { width: 36px; height: 36px; background: var(--ac-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .case-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  .cb-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; }
+  .cb-label.prob { color: #93583f; }
+  .cb-label.appr { color: #3f5f80; }
+  .cb-label.outc { color: #3f6b4c; }
+  .cb-p { font-size: 12.5px; color: #4b5563; line-height: 1.75; }
+  .cb-divider { height: 1px; background: var(--rule); margin: 11px 0; }
+  .cb-outcome { background: #e9ebec; border: 1px solid #d4d8db; border-radius: 6px; padding: 11px 14px; margin-top: 4px; }
+  .cb-outcome p { font-size: 12.5px; color: #3a454e; line-height: 1.72; }
+
+  /* ── Design control lifecycle ── */
+  .lifecycle-intro { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 26px 28px; margin-bottom: 24px; }
+  .lifecycle-intro p { font-size: 13.5px; color: #4b5563; line-height: 1.78; }
+  .pipeline { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+  .phase { padding: 15px 11px; background: var(--white); border-right: 1px solid var(--rule); cursor: pointer; transition: background 0.2s; }
+  .phase:last-child { border-right: none; }
+  .phase:hover { background: var(--ac-pale); }
+  .phase.active { background: var(--ink); }
+  .phase-num { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ac); font-weight: 700; margin-bottom: 6px; }
+  .phase-title { font-size: 12px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .phase.active .phase-title { color: #bcc7cd; }
+  .phase-sub { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+  .phase.active .phase-sub { color: #93a7b5; }
+  .detail-panel { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 24px 28px; margin-bottom: 26px; min-height: 180px; }
+  .dp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 14px; }
+  .dp-icon { width: 40px; height: 40px; background: var(--ac-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .dp-phase-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ac); font-weight: 700; margin-bottom: 4px; }
+  .dp-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .dp-body { font-size: 13.5px; color: #4b5563; line-height: 1.78; margin-bottom: 16px; }
+  .dp-gate { margin-top: 16px; background: var(--ink); border-radius: 8px; padding: 13px 16px; display: flex; align-items: flex-start; gap: 11px; }
+  .dp-gate-icon { color: #93a7b5; font-size: 12px; line-height: 1.5; flex-shrink: 0; }
+  .dp-gate-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #93a7b5; font-weight: 700; margin-bottom: 3px; }
+  .dp-gate-txt { font-size: 12px; color: #b7bec3; line-height: 1.6; }
+  .pill-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill { font-size: 10px; background: var(--ac-light); color: #2c3e52; padding: 3px 10px; border-radius: 4px; font-weight: 600; }
+  .pill.gov { background: #eef0f0; color: #565f68; }
+  .ps-label { margin-bottom: 8px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .domains-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 10px; }
+  .domain-card { background: var(--white); border: 1px solid var(--rule); border-radius: 7px; padding: 13px 15px; transition: border-color 0.2s; }
+  .domain-card:hover { border-color: var(--ac); }
+  .dc-title { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+  .dc-sub { font-size: 10.5px; color: var(--muted); line-height: 1.42; }
+
+  /* ── Artifacts ── */
+  .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 13px; }
+  .art-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .art-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ac); opacity: 0; transition: opacity 0.2s; }
+  .art-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.05); border-color: #d4d8db; }
+  .art-card:hover::before { opacity: 1; }
+  .art-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 11px; }
+  .art-icon { width: 36px; height: 36px; background: var(--ac-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .art-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .art-desc { font-size: 12.5px; color: #4b5563; line-height: 1.68; flex: 1; }
+  .art-reflect { margin-top: 11px; padding-top: 11px; border-top: 1px dashed var(--rule); font-size: 11px; color: var(--muted); font-style: italic; line-height: 1.55; }
+  .art-foot { margin-top: 16px; display: flex; justify-content: flex-end; }
+  .dl-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    background: var(--ink); color: #8aabbf;
+    font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    border-radius: 5px; font-weight: 600;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .dl-btn:hover { background: var(--ink2); }
+  .dl-btn svg { width: 12px; height: 12px; fill: currentColor; }
+
+  /* ── Products section ── */
+  .prod-intro { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 24px 28px; margin-bottom: 24px; }
+  .prod-intro p { font-size: 13.5px; color: #4b5563; line-height: 1.78; }
+  .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+  .prod-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .prod-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+  .prod-header {
+    background: var(--ink);
+    padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .prod-company-badge {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #93a7b5; font-weight: 700; margin-bottom: 5px;
+  }
+  .prod-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
+  .prod-type { font-size: 10px; color: #93a7b5; margin-top: 4px; line-height: 1.35; }
+  .prod-icon-box {
+    width: 38px; height: 38px; flex-shrink: 0;
+    background: rgba(116,135,154,0.18);
+    border: 1px solid rgba(147,167,181,0.22);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+  .prod-body { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .prod-desc { font-size: 12.5px; color: #4b5563; line-height: 1.72; }
+  .prod-role-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ac2); font-weight: 700; margin-bottom: 5px; }
+  .prod-contributions { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .prod-contributions li { font-size: 12px; color: #4b5563; line-height: 1.6; padding-left: 14px; position: relative; }
+  .prod-contributions li::before { content: '›'; position: absolute; left: 0; color: var(--ac); font-weight: 700; }
+  .prod-footer { padding: 12px 20px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 5px; }
+  .prod-tag { font-size: 10px; background: var(--ac-light); color: #2c3e52; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
+
+  /* ── Education ── */
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 13px; }
+  .edu-card { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 22px 24px; transition: border-color 0.2s; }
+  .edu-card:hover { border-color: var(--ac); }
+  .edu-deg { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+  .edu-field { font-size: 12px; color: #4b5563; margin-bottom: 6px; }
+  .edu-school { font-size: 12px; color: var(--ac2); font-weight: 600; }
+  .edu-note { margin-top: 10px; font-size: 11.5px; color: var(--muted); line-height: 1.58; }
+
+  /* ── Footer ── */
+  footer { background: var(--ink); color: #6b7780; text-align: center; padding: 32px; font-size: 12px; letter-spacing: 0.04em; }
+  footer span { color: #93a7b5; }
+
+  /* ── Responsive ── */
+  @media (max-width: 680px) {
+    .tl-line { display: none; }
+    .tl-item { grid-template-columns: 1fr; }
+    .tl-date { text-align: left; padding-top: 0; margin-bottom: 4px; }
+    .tl-dot-col { display: none; }
+    .metrics-inner { grid-template-columns: 1fr 1fr; }
+    .h-inner { grid-template-columns: 1fr; }
+    .h-meta { text-align: left; }
+    header { padding: 48px 24px 0; }
+    .metrics-strip { padding: 0 24px; }
+    .container { padding: 36px 16px 64px; }
+    .pipeline { grid-template-columns: 1fr 1fr; }
+    .phase:nth-child(odd) { border-right: 1px solid var(--rule); }
+    .phase:nth-child(even) { border-right: none; }
+    .case-grid, .art-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="h-inner">
+    <div>
+      <div class="eyebrow">Medical Device Systems Engineering &nbsp;&middot;&nbsp; Optical &amp; Electromechanical Instruments &nbsp;&middot;&nbsp; INCOSE Practice</div>
+      <div class="h-name">Architect.<br>Integrate.<br><span>Verify.</span></div>
+      <p class="h-sub">Systems engineer with 20+ years architecting, integrating, and verifying complex optical and electromechanical medical instruments across Class I, II, and III devices &mdash; from Medtronic MiniMed closed-loop insulin delivery to BD flow-cytometry IVD platforms and Abbott ophthalmic laser systems. Hands-on from concept through design transfer, and the first call when a system fails.</p>
+      <div class="pill-row">
+        <span class="cred-pill">MS Computer / Electrical Eng &middot; CSUN</span>
+        <span class="cred-pill">ISO 14971 &middot; IEC 60601</span>
+        <span class="cred-pill">Lean Six Sigma</span>
+        <span class="cred-pill">PMP Certified</span>
+        <span class="cred-pill">ITIL Foundation</span>
+        <span class="cred-pill">AWS Cloud Practitioner</span>
+        <span class="cred-pill">Scrum Certified</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          lodhiax@gmail.com
+        </span>
+        <span class="contact-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 9.79a19.79 19.79 0 0 1-3-8.54A2 2 0 0 1 3.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 9 9l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 18.92"/></svg>
+          (510) 557-7700
+        </span>
+        <span class="contact-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Fremont, CA 94538
+        </span>
+        <span class="contact-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          Open to Relocation (Southern California)
+        </span>
+      </div>
+    </div>
+    <div class="h-meta">
+      <a class="ln-btn" href="https://linkedin.com/in/atiflodhi/" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Atif Lodhi
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- METRICS STRIP -->
+<div class="metrics-strip">
+  <div class="metrics-inner">
+    <div class="mc"><div class="mc-num">20+</div><div class="mc-lbl">Years in regulated medical devices</div></div>
+    <div class="mc"><div class="mc-num">15</div><div class="mc-lbl">Years hands-on, concept to design transfer</div></div>
+    <div class="mc"><div class="mc-num">100%</div><div class="mc-lbl">IOVV coverage ahead of 510(k)</div></div>
+    <div class="mc"><div class="mc-num">90%</div><div class="mc-lbl">First-pass verification &amp; on-time</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#summary">Summary</a>
+    <a href="#impact">Impact</a>
+    <a href="#experience">Experience</a>
+    <a href="#products">Products</a>
+    <a href="#spotlights">Spotlights</a>
+    <a href="#competencies">Competencies</a>
+    <a href="#design-control">Design Control</a>
+    <a href="#artifacts">Artifacts</a>
+    <a href="#education">Education</a>
+    <a href="#technology">Tools</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- 01 SUMMARY -->
+  <section id="summary">
+    <div class="sec-label"><span class="sec-num">01</span><h2>Summary</h2></div>
+    <div class="sum-banner">
+      <p>I am a systems engineer first. For twenty-plus years I have applied <strong>INCOSE systems engineering practice</strong> to architect, integrate, and verify complex optical and electromechanical medical instruments across regulated Class I, II, and III devices &mdash; research and clinical flow-cytometry IVD platforms, closed-loop insulin delivery systems, and ophthalmic laser systems that fuse optics, fluidics, electronics, mechanics, and embedded software.</p>
+      <p>Fifteen of those years were hands-on from concept through design transfer: owning <strong>system architecture, requirements, interface control, verification, and the handoff into cGMP manufacturing and service</strong>. On every program I have been the <strong>technical focal point and first-line troubleshooter</strong>, isolating system failures to the responsible subsystem &mdash; optical, electrical, mechanical, or firmware &mdash; rather than waiting for someone else to find it.</p>
+      <p>I own <strong>requirements-to-verification traceability (IOVV)</strong>, the <strong>ISO 14971 Risk Management File</strong> including essential performance and DFMEA, and contribute to <strong>IEC 60601 technical peer reviews</strong>. That discipline, grounded in electrical, optical, and control-system fundamentals, is what lifted first-pass verification and on-time delivery from <strong>72 to 90 percent</strong> &mdash; and it scales: today I serve as senior technical authority across ten or more concurrent engineering programs.</p>
+      <div class="sum-byline">Atif Lodhi &nbsp;&middot;&nbsp; Systems Engineering &nbsp;&middot;&nbsp; Medical Devices &nbsp;&middot;&nbsp; Fremont, CA &nbsp;&middot;&nbsp; lodhiax@gmail.com &nbsp;&middot;&nbsp; (510) 557-7700</div>
+    </div>
+  </section>
+
+  <!-- 02 IMPACT -->
+  <section id="impact">
+    <div class="sec-label"><span class="sec-num">02</span><h2>Engineering impact</h2></div>
+    <div class="impact-grid">
+      <div class="stat-card">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Requirements-to-verification coverage</div>
+        <div class="stat-note">IOVV traceability on FDA-regulated ophthalmic laser platforms, complete ahead of 510(k) submission</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">20%</div>
+        <div class="stat-lbl">Fewer integration defects</div>
+        <div class="stat-note">At both Abbott Medical Optics and BD, through architecture ownership, interface control, and first-line subsystem fault isolation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">30%</div>
+        <div class="stat-lbl">Faster verification</div>
+        <div class="stat-note">Automated test coverage via a software emulator that simulated device behavior across flow-cytometry programs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">90&ndash;95%</div>
+        <div class="stat-lbl">Qualification pass rate</div>
+        <div class="stat-note">On closed-loop insulin delivery systems, via testable system and firmware requirements traced to verification</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">20%</div>
+        <div class="stat-lbl">Fewer recurring instrument failures</div>
+        <div class="stat-note">MTBF and field-performance tracking with corrective action on IVD instruments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">$500K</div>
+        <div class="stat-lbl">Annual savings, supplier qualification</div>
+        <div class="stat-note">Lean Six Sigma DMAIC qualification of an alternate component evaluated on cost, risk, and supportability</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-label"><span class="sec-num">03</span><h2>Career timeline</h2></div>
+    <div class="timeline">
+      <div class="tl-line"></div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jun 2019<br>Present</div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">Principal Technology &amp; Systems Lead</div>
+          <div class="tl-co">Creatics Private Limited &nbsp;&middot;&nbsp; Multidisciplinary Engineering Programs</div>
+          <div class="tl-meta">
+            <span class="badge bd-blue">Technical Authority</span>
+            <span class="badge bd-blue">10+ Concurrent Programs</span>
+            <span class="badge bd-gray">7 Years</span>
+          </div>
+          <p class="tl-body">Serve as senior technical authority across 10+ engineering programs, stepping hands-on into system architecture and troubleshooting when issues cut across electrical, mechanical, optical, and embedded domains, cutting escalations by 35 percent. Own end-to-end system architecture and system-level requirements, decomposing customer and product needs into testable specifications and interface control definitions, and lead trade studies across performance, reliability, cost, and risk to guide design decisions. Author system-level documentation that organizes architecture, defines integration strategy, and mitigates risk, and coordinate technical design reviews (SRR, PDR, CDR) with engineering, quality, manufacturing, and suppliers to close open technical issues. Instituted reliability and delivery-assurance practices, verification planning, and phase-gate reviews across a portfolio up to $55M, standardizing requirements and risk traceability, design-review, and release governance &mdash; lifting first-pass verification and on-time delivery from 72 to 90 percent.</p>
+          <div class="tl-tags">
+            <span class="tl-tag">INCOSE Systems Engineering</span>
+            <span class="tl-tag">System Architecture</span>
+            <span class="tl-tag">Interface Control</span>
+            <span class="tl-tag">Trade Studies</span>
+            <span class="tl-tag">SRR / PDR / CDR</span>
+            <span class="tl-tag">Verification Planning</span>
+            <span class="tl-tag">Reliability Assurance</span>
+            <span class="tl-tag">Phase-Gate Reviews</span>
+            <span class="tl-tag">Requirements &amp; Risk Traceability</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Feb 2015<br>May 2019</div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">Engineering Project Manager / Systems Architect</div>
+          <div class="tl-co">Abbott Medical Optics &nbsp;&middot;&nbsp; Ophthalmic Laser Systems</div>
+          <div class="tl-meta">
+            <span class="badge bd-blue">Class III</span>
+            <span class="badge bd-blue">Excimer &amp; Femtosecond</span>
+            <span class="badge bd-blue">510(k)</span>
+            <span class="badge bd-gray">4 yrs 3 mos</span>
+          </div>
+          <p class="tl-body">Led architecture and hands-on integration of FDA-regulated ophthalmic laser instruments (excimer and femtosecond), coordinating optical, electrical, mechanical, and embedded-software subsystems from concept through design transfer and serving as technical focal point across engineering, manufacturing, quality, and field service, reducing integration defects by 20 percent. Owned requirements and architecture for a real-time 3D eye-tracking subsystem that maintained laser-pulse placement during patient motion, defining interfaces between tracking sensors, control, and the optical delivery system; integrated closed-loop positioning into the laser platform and verified tracking performance through system-level test plans traced to requirements. Owned system requirements, the ISO 14971 Risk Management File, and IOVV traceability with 100 percent coverage ahead of 510(k). Drove design for manufacturability and testability into cGMP production, reducing review cycle time by 25 percent, and led product transfer to service with theory-of-operations documentation and training for Field Service, Technical Application Support, and Customer Education.</p>
+          <div style="margin-top:10px">
+            <div class="prod-role-label">Products</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span class="tl-tag">VISX Star S4 IR Active Trak</span>
+              <span class="tl-tag">Wavescan Wavefront System</span>
+              <span class="tl-tag">iFS Advanced Femtosecond Laser</span>
+              <span class="tl-tag">iLASIK Surgical System</span>
+            </div>
+          </div>
+          <div class="tl-tags" style="margin-top:10px">
+            <span class="tl-tag">Optical System Architecture</span>
+            <span class="tl-tag">Real-Time 3D Eye Tracking</span>
+            <span class="tl-tag">Closed-Loop Motion Control</span>
+            <span class="tl-tag">IOVV Traceability</span>
+            <span class="tl-tag">ISO 14971 RMF</span>
+            <span class="tl-tag">cGMP</span>
+            <span class="tl-tag">DFM / DFT</span>
+            <span class="tl-tag">Design Transfer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jul 2011<br>Jan 2015</div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">Sr. Systems Engineer</div>
+          <div class="tl-co">Becton Dickinson (BD Biosciences) &nbsp;&middot;&nbsp; Flow-Cytometry IVD Platforms</div>
+          <div class="tl-meta">
+            <span class="badge bd-blue">IVD</span>
+            <span class="badge bd-blue">IEC 60601</span>
+            <span class="badge bd-blue">ISO 14971</span>
+            <span class="badge bd-gray">3 yrs 7 mos</span>
+          </div>
+          <p class="tl-body">Owned system architecture and interface control across optics, fluidics, electronics, and embedded software for research and clinical flow-cytometry IVD platforms, decomposing requirements into subsystem specifications and serving as first-line troubleshooter isolating failures to the responsible subsystem, reducing integration defects by 20 percent. Drove DFMEA, fault-tree and root-cause analysis, and system risk management, linking hazards to risk controls and verification, and contributed to IEC 60601 technical peer reviews alongside cross-functional design reviews. Tracked MTBF and field performance and drove corrective action, reducing recurring instrument failures by 20 percent. Defined verification strategy and system verification plans, and built automated test coverage via a software emulator that simulated device behavior, accelerating verification by 30 percent. Led a Lean Six Sigma DMAIC supplier qualification evaluating cost, risk, and supportability that delivered approximately $500K in annual savings.</p>
+          <div style="margin-top:10px">
+            <div class="prod-role-label">Products</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span class="tl-tag">BD FACSCanto Clinical</span>
+              <span class="tl-tag">BD FACSuite Clinical</span>
+              <span class="tl-tag">BD FACS Workflow Manager</span>
+              <span class="tl-tag">Diva Flow Cytometry Application</span>
+              <span class="tl-tag">BD Laboratory Information System</span>
+            </div>
+          </div>
+          <div class="tl-tags" style="margin-top:10px">
+            <span class="tl-tag">Optics / Fluidics / Electronics</span>
+            <span class="tl-tag">Interface Control Documents (ICD)</span>
+            <span class="tl-tag">DFMEA / Fault-Tree Analysis</span>
+            <span class="tl-tag">IEC 60601 Peer Review</span>
+            <span class="tl-tag">MTBF Tracking</span>
+            <span class="tl-tag">ASIC Device Emulator</span>
+            <span class="tl-tag">FPGA / LIMS Integration</span>
+            <span class="tl-tag">Validated Platform Migration</span>
+            <span class="tl-tag">Supplier Qualification</span>
+            <span class="tl-tag">IBM DOORS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Aug 2004<br>Jun 2011</div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">Sr. Systems Engineer</div>
+          <div class="tl-co">Medtronic MiniMed &nbsp;&middot;&nbsp; Northridge, CA &nbsp;&middot;&nbsp; CGM and Insulin Delivery Systems</div>
+          <div class="tl-meta">
+            <span class="badge bd-blue">Class II / III</span>
+            <span class="badge bd-blue">IEC 60601</span>
+            <span class="badge bd-blue">Closed-Loop Systems</span>
+            <span class="badge bd-gray">6 yrs 11 mos</span>
+          </div>
+          <p class="tl-body">Performed system integration and system-level testing for real-time closed-loop insulin-delivery and connected platforms, including electronic circuit troubleshooting, serving as first-line triage to isolate faults across vendor hardware, firmware, and mechanical fixtures. Owned system-level FMEA under ISO 14971 and IEC 60601, defined fault-detection, fail-safe logic, and essential performance, and translated product needs into testable system and firmware requirements with traceability to verification, raising qualification pass rates to approximately 90 to 95 percent. Owned release management across hardware and firmware, including drawing version control, engineering change orders, and configuration control of released baselines. Verified supplier components against specifications before integration and drove first-article inspection and supplier qualification with global manufacturing partners, reducing production defects by 15 percent. Maintained requirements traceability matrices linking user needs, specifications, risk controls, and verification protocols in support of regulatory submissions.</p>
+          <div style="margin-top:10px">
+            <div class="prod-role-label">Products</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span class="tl-tag">MySentry Monitoring System</span>
+              <span class="tl-tag">CareLink Pro</span>
+              <span class="tl-tag">CareLink Desktop Clinic Application</span>
+            </div>
+          </div>
+          <div class="tl-tags" style="margin-top:10px">
+            <span class="tl-tag">System Integration &amp; Test</span>
+            <span class="tl-tag">Electronic Circuit Troubleshooting</span>
+            <span class="tl-tag">System-Level FMEA</span>
+            <span class="tl-tag">IEC 60601 Essential Performance</span>
+            <span class="tl-tag">Fail-Safe Logic</span>
+            <span class="tl-tag">IEC 60601-1-11 Reliability</span>
+            <span class="tl-tag">ESD / Drop / Shock / Vibration / ALT</span>
+            <span class="tl-tag">ECO / Configuration Control</span>
+            <span class="tl-tag">First-Article Inspection</span>
+            <span class="tl-tag">DHF / V&amp;V</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 MEDICAL DEVICE PRODUCTS -->
+  <section id="products">
+    <div class="sec-label"><span class="sec-num">04</span><h2>Medical device products</h2></div>
+    <div class="prod-intro">
+      <p>The product portfolio spans connected CGM and insulin delivery platforms, flow-cytometry IVD instruments, and FDA-cleared ophthalmic laser systems. Each one was a multidisciplinary system &mdash; optics, fluidics, electronics, mechanics, and embedded software &mdash; carried under full design control from user needs through design transfer, and each required the same core work: a defensible architecture, clean interfaces, a living risk file, and verification that traces back to every requirement.</p>
+    </div>
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128064;</div>
+          <div>
+            <div class="prod-company-badge">Abbott Medical Optics &nbsp;&middot;&nbsp; Ophthalmic &nbsp;&middot;&nbsp; 2015 to 2019</div>
+            <div class="prod-name">VISX Star S4 IR with Active Trak</div>
+            <div class="prod-type">Excimer laser vision correction system &nbsp;&middot;&nbsp; LASIK and PRK</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">An excimer laser system for LASIK and PRK, incorporating Active Trak three-dimensional eye tracking to hold laser-pulse placement accuracy during patient eye movement. A Class III device requiring cGMP compliance, rigorous design controls, and full design transfer to the service organization.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Decomposed customer requirements into system and product requirements and recommended the architecture for integrating Active Trak with the laser delivery subsystem</li>
+              <li>Modeled system behavior to drive architectural decisions and requirement refinement across the electro-optical subsystem</li>
+              <li>Reviewed designs with manufacturing for design-to-cost, testability, and manufacturability</li>
+              <li>Led product transfer, authoring theory-of-operations documentation and training for Field Service and Technical Application Support</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">Class III</span>
+          <span class="prod-tag">Excimer Laser</span>
+          <span class="prod-tag">Eye Tracking</span>
+          <span class="prod-tag">Electro-Optical</span>
+          <span class="prod-tag">Design Transfer</span>
+          <span class="prod-tag">Requirements Decomposition</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128262;</div>
+          <div>
+            <div class="prod-company-badge">Abbott Medical Optics &nbsp;&middot;&nbsp; Ophthalmic &nbsp;&middot;&nbsp; 2015 to 2019</div>
+            <div class="prod-name">iLASIK Surgical System &mdash; Laser Replacement and Optimization</div>
+            <div class="prod-type">Surgical laser end-of-life qualification &nbsp;&middot;&nbsp; Optical equivalence and 510(k) support</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">When the surgical laser reached manufacturer end-of-life, the iLASIK platform needed a qualified replacement that preserved clinical performance and regulatory standing without re-opening the safety case. The work centered on proving optical equivalence &mdash; wavelength, beam profile, pulse energy, and drift &mdash; across the full operating life.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Led technical evaluation of the replacement laser, defining selection criteria across wavelength consistency, optical power, beam profile, energy stability, and thermal performance</li>
+              <li>Characterized legacy and replacement lasers and built the end-of-life performance model mapping power, wavelength drift, and pulse consistency against operating hours</li>
+              <li>Coordinated DVT, DFT, and instrument-level integration to confirm clinical accuracy, calibration, optical alignment, and safety interlocks</li>
+              <li>Directed accelerated life testing and consolidated equivalence evidence, risk-file updates, and DHF records for the 510(k)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">Optical Equivalence</span>
+          <span class="prod-tag">Laser Characterization</span>
+          <span class="prod-tag">End-of-Life Qualification</span>
+          <span class="prod-tag">DVT / DFT</span>
+          <span class="prod-tag">Accelerated Life Testing</span>
+          <span class="prod-tag">510(k)</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128302;</div>
+          <div>
+            <div class="prod-company-badge">Abbott Medical Optics &nbsp;&middot;&nbsp; Ophthalmic &nbsp;&middot;&nbsp; 2015 to 2019</div>
+            <div class="prod-name">iFS Advanced Femtosecond Laser and Wavescan Wavefront System</div>
+            <div class="prod-type">Femtosecond laser platform and wavefront diagnostic system &nbsp;&middot;&nbsp; Refractive surgery</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">The iFS Advanced Femtosecond Laser creates the corneal flap in LASIK with ultrafast laser pulses, while the Wavescan Wavefront system maps higher-order aberrations of the eye to guide customized treatment planning. Together they form a coordinated refractive surgery platform with system-level integration between diagnostic and treatment devices.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Defined design input requirements for wavefront-guided treatment integration between the two platforms</li>
+              <li>Aligned requirements across customers, vendors, marketing, and product management into a single controlled design input set</li>
+              <li>Confirmed design-for-testability and design-for-manufacturability objectives across both systems with manufacturing</li>
+              <li>Developed theory-of-operations training for Field Service and Technical Application Support during product transfer</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">Femtosecond Laser</span>
+          <span class="prod-tag">Wavefront Diagnostics</span>
+          <span class="prod-tag">System Integration</span>
+          <span class="prod-tag">Design Inputs</span>
+          <span class="prod-tag">cGMP</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128300;</div>
+          <div>
+            <div class="prod-company-badge">BD Biosciences &nbsp;&middot;&nbsp; IVD &nbsp;&middot;&nbsp; 2011 to 2015</div>
+            <div class="prod-name">BD FACSCanto Clinical and BD FACSuite Clinical</div>
+            <div class="prod-type">Flow-cytometry IVD platform &nbsp;&middot;&nbsp; Clinical immunophenotyping</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">Flow-cytometry systems used in clinical laboratories for immunophenotyping, CD4 counting, and hematology analysis. The platform integrates a multi-laser benchtop analyzer &mdash; optics, fluidics, and electronics &mdash; with dedicated clinical software under IVD design control and ISO 13485.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Defined system requirements, architecture, and specifications spanning instrumentation, hardware, and software from user needs and FDA / IEC standards</li>
+              <li>Integrated the optical detection assembly, fluidics, electronics, and clinical software, and ran system-level V&amp;V for performance, accuracy, and reliability</li>
+              <li>Implemented ISO 14971 risk management, from risk management plan through mitigation monitoring across the lifecycle</li>
+              <li>Maintained design-record traceability supporting regulatory submissions and knowledge transfer</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">IVD</span>
+          <span class="prod-tag">Multi-Laser Optics</span>
+          <span class="prod-tag">Fluidics</span>
+          <span class="prod-tag">ISO 13485</span>
+          <span class="prod-tag">ISO 14971</span>
+          <span class="prod-tag">System V&amp;V</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128202;</div>
+          <div>
+            <div class="prod-company-badge">BD Biosciences &nbsp;&middot;&nbsp; IVD &nbsp;&middot;&nbsp; 2011 to 2015</div>
+            <div class="prod-name">BD FACSuite and BD FACS Workflow Manager</div>
+            <div class="prod-type">Instrument control and laboratory workflow software</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">BD FACSuite controls BD flow-cytometry instruments &mdash; experiment setup, acquisition, and analysis &mdash; while FACS Workflow Manager connects instruments, operators, and clinical data systems across the laboratory.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Defined system and software requirements for workflow automation modules and clinical data integration interfaces across the instrument ecosystem</li>
+              <li>Prepared system specifications, design documentation, and test protocols for regulatory compliance</li>
+              <li>Supported integration of the BD Laboratory Information System with FACSuite for end-to-end data traceability from sample to report</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">Instrument Control</span>
+          <span class="prod-tag">LIMS Integration</span>
+          <span class="prod-tag">Interface Definition</span>
+          <span class="prod-tag">ISO 13485</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128138;</div>
+          <div>
+            <div class="prod-company-badge">Medtronic MiniMed &nbsp;&middot;&nbsp; Class III &nbsp;&middot;&nbsp; 2004 to 2011</div>
+            <div class="prod-name">MySentry Remote Monitoring System</div>
+            <div class="prod-type">Connected CGM remote monitor &nbsp;&middot;&nbsp; Wireless transmission to bedside display</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">MySentry transmitted real-time CGM data wirelessly from a patient's insulin pump to a bedside monitor, giving caregivers overnight visibility. A Class III device combining embedded firmware, an RF link, and a display device with safety-critical alert logic.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Performed requirements analysis for the wireless transmission and alert subsystems</li>
+              <li>Managed hazards and mitigations through a formal risk register under ISO 14971</li>
+              <li>Designed automated test cases covering corner cases and stress testing of the RF link and alert logic</li>
+              <li>Documented test plans and reports with technical rationale supporting qualification and PMA submission</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">Class III</span>
+          <span class="prod-tag">PMA</span>
+          <span class="prod-tag">RF / Wireless</span>
+          <span class="prod-tag">Alert Logic</span>
+          <span class="prod-tag">IEC 62304</span>
+          <span class="prod-tag">ISO 14971</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-header">
+          <div class="prod-icon-box">&#128187;</div>
+          <div>
+            <div class="prod-company-badge">Medtronic MiniMed &nbsp;&middot;&nbsp; 2004 to 2011</div>
+            <div class="prod-name">CareLink Pro and CareLink Desktop Clinic Application</div>
+            <div class="prod-type">Connected patient data management &nbsp;&middot;&nbsp; Clinical and consumer software</div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <p class="prod-desc">The software ecosystem that aggregated CGM, pump, and meter data for clinical review and patient self-management, integrated with the broader MiniMed device ecosystem under IEC 62304.</p>
+          <div>
+            <div class="prod-role-label">Systems engineering contributions</div>
+            <ul class="prod-contributions">
+              <li>Authored requirements for data ingestion, report generation, and device synchronization</li>
+              <li>Validated data fidelity between pump firmware and the clinical reporting layer, troubleshooting complex integration scenarios</li>
+              <li>Worked with quality and R&amp;D to hold IEC 62304 compliance across all software items</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-tag">IEC 62304</span>
+          <span class="prod-tag">Device Data Integration</span>
+          <span class="prod-tag">Software V&amp;V</span>
+          <span class="prod-tag">Clinical Software</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 SPOTLIGHTS -->
+  <section id="spotlights">
+    <div class="sec-label"><span class="sec-num">05</span><h2>Engineering spotlights</h2></div>
+    <div class="case-grid">
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128737;</div><span class="badge bd-dark">Functional Safety</span></div>
+          <div class="case-title">Turning a fault into a safe state before it could reach a clinical reading</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">Field feedback surfaced a quiet but serious risk: after certain fault conditions, the device could keep operating and display readings a clinician might trust, with no clear signal that the measurement could no longer be relied on. A device running in an unknown state is a patient-safety hazard, not just a defect.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Designed a fail-safe Sleep Mode driven from Voice-of-Customer input through verification. On detecting a predefined fault, the device stops acquiring or displaying measurements, raises a clear alert, and requires a reset plus passing self-tests before returning to clinical use. New requirements were threaded through hardware power-state transitions, firmware fault-detection and recovery logic, and the system risk file at once, with traceability held from customer need to test.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The failure path was closed by design &mdash; a faulted device can no longer present a reading as valid. Fault detection, alerts, and mandatory self-test-before-return were verified through functional, fault-injection, and regression testing, feeding directly into the 510(k) documentation package.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#129488;</div><span class="badge bd-dark">System Integration</span></div>
+          <div class="case-title">Restructuring integration to deliver V&amp;V data for an FDA submission</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">A closed-loop surgical instrument simulator was stalling because integration waited on full subsystem completion. Hardware, firmware, and software matured at different rates, so integration was always last and always late &mdash; and the simulator's output was the V&amp;V data earmarked for FDA submission.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Re-architected the integration strategy to give integration independent entry points at each development phase, enabling incremental validation against partial builds. Design outputs, verification evidence, and engineering reports were released in phase with milestones rather than assembled after the fact.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>Integration stopped being a source of schedule risk. Simulator validation completed on cycle and produced the V&amp;V data package supporting the FDA submission, and the incremental-integration model became the team's standard for subsequent programs.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#127963;</div><span class="badge bd-dark">Traceability</span></div>
+          <div class="case-title">Rebuilding a submission's traceability to clear an FDA inquiry</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">An FDA review returned observations against the software interface that displayed and managed a regulated device's data. The gaps were in the evidence, not the behavior: incomplete requirements traceability, verification records that no longer fully supported performance claims, and design documentation scattered across teams and years.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Triaged each observation into documentation, verification, traceability, and performance-evidence categories. Reconstructed the Requirements Traceability Matrix end to end &mdash; user needs to requirements to design outputs to verification and validation &mdash; generating new records where history was missing, and coordinated targeted retesting where prior evidence fell short.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The submission went back with a complete, defensible traceability chain and verification evidence that stood on its own, with improved DHF quality and a technically robust package for Regulatory Affairs.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128736;</div><span class="badge bd-dark">Supplier Qualification</span></div>
+          <div class="case-title">Requalifying a critical component to take $45 out of every instrument built</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">A precision instrument carried a single-source, high-cost needle assembly that set both its material cost and its supply risk. There was no qualified alternative and no measurement baseline showing where assembly variation came from, with a production ramp approaching.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">A Lean Six Sigma DMAIC project mapped the assembly workflow, and a Gauge R&amp;R study established a trustworthy measurement baseline before any change was proposed. An alternate supplier was evaluated against the full performance and quality profile, then qualified through bench testing and process validation (IQ, OQ, PQ).</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The qualified alternate met every performance and quality requirement while removing roughly $45 of material cost per instrument &mdash; about $500K in annual savings at production volume &mdash; standardizing the assembly process and reducing single-source supply risk.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128296;</div><span class="badge bd-dark">Reliability Engineering</span></div>
+          <div class="case-title">Driving a home-use device through IEC 60601-1-11 reliability qualification</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">A medical electrical device intended for home healthcare had to prove it could survive real-world handling and years of use before production release. Early qualification runs exposed design weaknesses, and an epoxy-related manufacturing issue was quietly undermining durability.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Built the reliability validation plan with Quality, R&amp;D, and Mechanical Engineering &mdash; test procedures and acceptance criteria for ESD immunity, drop, mechanical shock, vibration, and accelerated life testing. Ran root cause analysis on every failed unit, traced failure mechanisms to design, materials, electrical assemblies, or process, and drove corrective actions through design review. Each change was re-run through the complete test sequence, not just the test it failed.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The epoxy issue was resolved at its source, structural robustness improved, and qualification pass rates rose to roughly 90&ndash;95 percent. Accelerated life testing validated long-term durability, and the evidence package supported IEC 60601-1-11 compliance and production readiness.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128421;</div><span class="badge bd-dark">Simulation &amp; Test</span></div>
+          <div class="case-title">Building a device emulator that freed verification from physical hardware</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">Software development, algorithm validation, and system testing were all gated on scarce physical hardware. Every test scenario depended on a real device being available, configured, and in the right state &mdash; slowing verification and making edge cases hard to reproduce.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Analyzed the production device architecture &mdash; the ASIC and its communication interfaces, embedded algorithms, and hardware-software protocols &mdash; and mapped each behavior to a software simulation model. Wrote the emulator's system requirements and acceptance criteria, built the proof-of-concept that simulated sensor data and algorithm outputs across configurable device states, then verified it against production hardware through protocol checks and algorithm output comparison.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The emulator produced repeatable, configurable test scenarios without hardware, accelerating verification by about 30 percent. Released under configuration control with full traceability, it became the engineering test platform for multiple Class II and Class III device programs.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128167;</div><span class="badge bd-dark">Sustaining Engineering</span></div>
+          <div class="case-title">Upgrading a released device to IPX6 without disturbing its safety case</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">Usability feedback called for an existing device to withstand powerful water jets (IPX6). Sealing a released product touches nearly every subsystem &mdash; enclosure, connectors, PCB, firmware &mdash; and every change risked affecting electrical safety, performance, or the device's regulatory standing.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Treated it as a system-level design change: design inputs and an ECR up front, then DFMEA and hazard analysis asking what happens if water gets in &mdash; moisture on the PCB, condensation-driven leakage current, patient exposure. Coordinated sealing, connector, and layout changes with mechanical and electrical engineering, and fault-monitoring and safe-state behavior with firmware, holding traceability from each new input to its verification.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The change was carried through board- and device-level verification, ingress and environmental testing, and IEC 60601-1 / 60601-1-11 compliance checks, with updated risk file, DHF, and documentation supporting 510(k) and EU technical file updates and transfer back into production.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#128421;</div><span class="badge bd-dark">Platform Validation</span></div>
+          <div class="case-title">Migrating validated IVD workstations to a new OS with proven equivalence</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">Instrument workstations running released IVD, research, and V&amp;V software had to move from Windows XP to Windows 7. In a regulated lab, a new operating system is not an IT update &mdash; any change in instrument communication or data output could invalidate the validated baseline.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Assessed and upgraded workstation hardware, then worked down the stack: FPGA code updates to keep instrument communication reliable, coordinated firmware changes, and updated LIMS interfaces and data export formats. Ran side-by-side workflow comparison studies between legacy and upgraded systems, plus regression and functional testing across IVD, research, and validation applications.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>Output equivalence between legacy and upgraded systems was demonstrated and discrepancies resolved before rollout. IQ/OQ and validation records were completed under quality procedures, and the upgraded workstations were deployed without disrupting instrument operation.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-accent"></div>
+        <div class="case-body">
+          <div class="case-hd"><div class="case-icon">&#127981;</div><span class="badge bd-dark">Manufacturing Transfer</span></div>
+          <div class="case-title">Standing up and validating a manufacturing line for an NGS product</div>
+          <div class="cb-label prob">The problem</div>
+          <p class="cb-p">A Next-Generation Sequencing product was moving from development into production, and needed a manufacturing line that could build it repeatably, test it reliably, and satisfy quality system requirements from day one.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label appr">Engineering approach</div>
+          <p class="cb-p">Helped define the end-to-end manufacturing workflow with R&amp;D, Quality, and Process Engineering. Designed custom test fixtures and production hardware, developed functional and range test methods covering nominal and worst-case conditions, ran Gauge R&amp;R studies on the measurement systems, and executed IQ, OQ, and PQ on the equipment, applying statistical analysis to process capability.</p>
+          <div class="cb-divider"></div>
+          <div class="cb-label outc">Outcome</div>
+          <div class="cb-outcome"><p>The line was qualified with validated equipment, trustworthy measurement systems, and automated test where it improved consistency &mdash; with validation protocols, reports, and DMR documentation in place under ISO 13485 and GMP.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 06 COMPETENCIES -->
+  <section id="competencies">
+    <div class="sec-label"><span class="sec-num">06</span><h2>Core competencies</h2></div>
+    <div class="comp-wrap">
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Systems &amp; Instrument Architecture</div>
+        <div class="comp-item"><span class="comp-dot"></span>INCOSE Systems Engineering</div>
+        <div class="comp-item"><span class="comp-dot"></span>System Architecture &amp; Trade Studies</div>
+        <div class="comp-item"><span class="comp-dot"></span>Requirements Definition &amp; Decomposition</div>
+        <div class="comp-item"><span class="comp-dot"></span>Interface Control (ICDs)</div>
+        <div class="comp-item"><span class="comp-dot"></span>Requirements-to-Verification (IOVV)</div>
+        <div class="comp-item"><span class="comp-dot"></span>System Integration &amp; Test</div>
+        <div class="comp-item"><span class="comp-dot"></span>First-Line Troubleshooting / Fault Isolation</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Optical, Electrical &amp; Control</div>
+        <div class="comp-item"><span class="comp-dot"></span>Optical / Electro-Optical Integration</div>
+        <div class="comp-item"><span class="comp-dot"></span>Laser &amp; Detection Subsystems</div>
+        <div class="comp-item"><span class="comp-dot"></span>Fluidics Integration</div>
+        <div class="comp-item"><span class="comp-dot"></span>Electrical &amp; Embedded Systems</div>
+        <div class="comp-item"><span class="comp-dot"></span>Real-Time Closed-Loop Positioning &amp; Tracking</div>
+        <div class="comp-item"><span class="comp-dot"></span>Control Theory &amp; Signal Processing</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Reliability, Risk &amp; Quality</div>
+        <div class="comp-item"><span class="comp-dot"></span>ISO 14971 Risk Management File</div>
+        <div class="comp-item"><span class="comp-dot"></span>IEC 60601 Essential Performance</div>
+        <div class="comp-item"><span class="comp-dot"></span>DFMEA / Fault-Tree / Root Cause</div>
+        <div class="comp-item"><span class="comp-dot"></span>Fail-Safe &amp; Fault-Detection Logic</div>
+        <div class="comp-item"><span class="comp-dot"></span>MTBF &amp; Reliability Growth</div>
+        <div class="comp-item"><span class="comp-dot"></span>Supplier Qualification &amp; FAI</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Verification &amp; Reliability Testing</div>
+        <div class="comp-item"><span class="comp-dot"></span>ESD, Drop, Shock &amp; Vibration</div>
+        <div class="comp-item"><span class="comp-dot"></span>Accelerated Life Testing (ALT)</div>
+        <div class="comp-item"><span class="comp-dot"></span>Ingress Protection (IPX6)</div>
+        <div class="comp-item"><span class="comp-dot"></span>Fault-Injection &amp; Regression Testing</div>
+        <div class="comp-item"><span class="comp-dot"></span>Device Emulation &amp; Simulation</div>
+        <div class="comp-item"><span class="comp-dot"></span>Gauge R&amp;R &amp; IQ / OQ / PQ</div>
+        <div class="comp-item"><span class="comp-dot"></span>Test Fixture Design</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Design Control &amp; Regulatory</div>
+        <div class="comp-item"><span class="comp-dot"></span>FDA Design Controls &amp; DHF</div>
+        <div class="comp-item"><span class="comp-dot"></span>ISO 13485 / cGMP</div>
+        <div class="comp-item"><span class="comp-dot"></span>IEC 62304 Software Lifecycle</div>
+        <div class="comp-item"><span class="comp-dot"></span>Design Change &amp; Release Management</div>
+        <div class="comp-item"><span class="comp-dot"></span>Design Transfer (DFM / DFT)</div>
+        <div class="comp-item"><span class="comp-dot"></span>510(k) / PMA Submission Support</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Technical Leadership</div>
+        <div class="comp-item"><span class="comp-dot"></span>Technical Authority Across 10+ Programs</div>
+        <div class="comp-item"><span class="comp-dot"></span>SRR / PDR / CDR Design Reviews</div>
+        <div class="comp-item"><span class="comp-dot"></span>Phase-Gate &amp; Verification Planning</div>
+        <div class="comp-item"><span class="comp-dot"></span>Cross-Functional &amp; Supplier Alignment</div>
+        <div class="comp-item"><span class="comp-dot"></span>Lean Six Sigma DMAIC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 DESIGN CONTROL LIFECYCLE -->
+  <section id="design-control">
+    <div class="sec-label"><span class="sec-num">07</span><h2>Design control lifecycle</h2></div>
+    <div class="lifecycle-intro">
+      <p>This is the phase-gated design control process governing a medical device from user need through commercial release and post-market surveillance. Built around FDA design control requirements and ISO 13485, each phase converts a defined set of inputs into verified outputs, and cannot advance until its gate review confirms the evidence is complete and traceable. Click any phase to explore its purpose, deliverables, and gate checkpoint.</p>
+    </div>
+    <div class="pipeline" id="pipeline">
+      <div class="phase active" onclick="selectPhase(0)">
+        <div class="phase-num">01</div>
+        <div class="phase-title">Requirements &amp; Planning</div>
+        <div class="phase-sub">Design inputs &middot; Gate 1</div>
+      </div>
+      <div class="phase" onclick="selectPhase(1)">
+        <div class="phase-num">02</div>
+        <div class="phase-title">Design &amp; Development</div>
+        <div class="phase-sub">Design outputs &middot; Gate 2</div>
+      </div>
+      <div class="phase" onclick="selectPhase(2)">
+        <div class="phase-num">03</div>
+        <div class="phase-title">Verification &amp; Bench Test</div>
+        <div class="phase-sub">Built right &middot; Gate 3</div>
+      </div>
+      <div class="phase" onclick="selectPhase(3)">
+        <div class="phase-num">04</div>
+        <div class="phase-title">Transfer &amp; Line Validation</div>
+        <div class="phase-sub">IQ / OQ / PQ &middot; Gate 4</div>
+      </div>
+      <div class="phase" onclick="selectPhase(4)">
+        <div class="phase-num">05</div>
+        <div class="phase-title">Clinical &amp; Submission</div>
+        <div class="phase-sub">Right device &middot; Gate 5</div>
+      </div>
+      <div class="phase" onclick="selectPhase(5)">
+        <div class="phase-num">06</div>
+        <div class="phase-title">Commercial &amp; Post-Market</div>
+        <div class="phase-sub">Clearance &middot; Gate 6</div>
+      </div>
+    </div>
+    <div class="detail-panel" id="detail-panel"></div>
+    <div class="ps-label" style="margin-bottom: 14px;">Standards and controls governing every phase</div>
+    <div class="domains-grid">
+      <div class="domain-card"><div class="dc-title">21 CFR 820 Design Controls</div><div class="dc-sub">FDA quality system design control requirements</div></div>
+      <div class="domain-card"><div class="dc-title">ISO 13485</div><div class="dc-sub">Quality management system for medical device design and manufacture</div></div>
+      <div class="domain-card"><div class="dc-title">ISO 14971</div><div class="dc-sub">Risk management applied across the full product lifecycle</div></div>
+      <div class="domain-card"><div class="dc-title">IEC 60601</div><div class="dc-sub">Electrical safety and essential performance for medical electrical devices</div></div>
+      <div class="domain-card"><div class="dc-title">IEC 60601-1-11</div><div class="dc-sub">Home healthcare environment: durability, robustness, and ingress</div></div>
+      <div class="domain-card"><div class="dc-title">IEC 62304</div><div class="dc-sub">Software lifecycle processes for medical device software</div></div>
+      <div class="domain-card"><div class="dc-title">IEC 62366</div><div class="dc-sub">Usability engineering and human factors validation</div></div>
+      <div class="domain-card"><div class="dc-title">Design Reviews</div><div class="dc-sub">Formal phase-gate reviews at each design control checkpoint</div></div>
+      <div class="domain-card"><div class="dc-title">Design History File</div><div class="dc-sub">Objective evidence compiled and locked across every phase</div></div>
+    </div>
+  </section>
+
+  <!-- 08 DESIGN CONTROL ARTIFACTS -->
+  <section id="artifacts">
+    <div class="sec-label"><span class="sec-num">08</span><h2>Design control artifacts</h2></div>
+    <div class="art-grid">
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128196;</div><span class="badge bd-dark">Design Input</span></div>
+        <div class="art-title">System Requirements Document</div>
+        <div class="art-desc">Defines the system-level functional and performance requirements the device must meet. Captures stakeholder needs, intended use, user needs, and design inputs per FDA design control and ISO 13485 requirements.</div>
+        <div class="art-reflect">The foundation of the design control process. Every downstream design output, test, and verification activity must trace back to this document.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/SRD.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>SRD
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128187;</div><span class="badge bd-dark">Design Input</span></div>
+        <div class="art-title">Software Requirements Document</div>
+        <div class="art-desc">Specifies software functional and non-functional requirements per IEC 62304. Defines software items, interfaces, safety classifications, and performance criteria. Serves as the binding input for software architecture design and unit-level testing.</div>
+        <div class="art-reflect">Drives the IEC 62304 software development lifecycle from architecture through unit and integration testing. Auditors expect this to be traceable in both directions.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/SRS.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>SRD-SW
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128203;</div><span class="badge bd-dark">Traceability</span></div>
+        <div class="art-title">Requirements Traceability Matrix</div>
+        <div class="art-desc">Bidirectional traceability linking user needs through system requirements, software requirements, design outputs, verification tests, and validation evidence. The single artifact that demonstrates completeness of the design control chain to FDA and notified bodies.</div>
+        <div class="art-reflect">Critical for 510(k) and PMA submissions. Auditors inspect this first to confirm every requirement is tested and every test is justified by a requirement.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/RTM.xlsx" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>RTM
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#9888;&#65039;</div><span class="badge bd-dark">Risk Management</span></div>
+        <div class="art-title">Risk Management File</div>
+        <div class="art-desc">End-to-end risk management documentation per ISO 14971 — covering hazard identification, probability and severity scoring, risk controls, residual risk evaluation, and benefit-risk analysis. Maintained as a living file throughout the product lifecycle.</div>
+        <div class="art-reflect">Required for all medical device submissions. Demonstrates systematic harm prevention and that residual risk has been evaluated and accepted appropriately.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/RMF.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>RMF
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128296;</div><span class="badge bd-dark">Architecture</span></div>
+        <div class="art-title">Software Architecture Document</div>
+        <div class="art-desc">Describes software architecture, system interfaces, data flows, module decomposition, and design decisions for regulated software per IEC 62304 Section 5.3. Maps software items to safety classifications and defines the integration strategy across subsystems.</div>
+        <div class="art-reflect">The technical backbone of the software design file. Reviewed in software audits by FDA and notified bodies to confirm architectural rigor.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/SAD.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>SAD
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#9989;</div><span class="badge bd-dark">Verification</span></div>
+        <div class="art-title">Verification and Validation Plan</div>
+        <div class="art-desc">Defines the V&amp;V strategy, test methods, acceptance criteria, responsible parties, and schedule for confirming design outputs meet design inputs — verification — and that the finished device meets user needs — validation.</div>
+        <div class="art-reflect">Keeps verification and validation clearly separated. Conflating the two is one of the most common audit findings in software-intensive device programs.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/VVPlan.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>V&amp;V Plan
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128027;</div><span class="badge bd-dark">Defect Management</span></div>
+        <div class="art-title">Anomaly and Defect Tracking Log</div>
+        <div class="art-desc">Structured log of anomalies and defects identified during verification and validation, including severity classification, root cause, resolution, and regression test status. Required by IEC 62304 Section 5.6 for software problem resolution.</div>
+        <div class="art-reflect">Demonstrates controlled handling of defects throughout development. Particularly critical for Class B and Class C software items under IEC 62304.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/AnomalyLog.xlsx" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>Anomaly Log
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128737;&#65039;</div><span class="badge bd-dark">CAPA</span></div>
+        <div class="art-title">CAPA Report</div>
+        <div class="art-desc">Corrective and Preventive Action documentation covering problem identification, root cause analysis using fishbone, 5-Why, or fault tree methods, action plan, effectiveness verification, and formal closure per ISO 13485 Section 8.5.</div>
+        <div class="art-reflect">One of the most scrutinized records in any FDA inspection. A well-structured CAPA with a demonstrated effectiveness check signals a functioning quality system.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/CAPA.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>CAPA
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#127775;</div><span class="badge bd-dark">Phase Gate</span></div>
+        <div class="art-title">Phase Gate Exit Review</div>
+        <div class="art-desc">Formal design review deck presented at each phase gate — Concept, Feasibility, Development, Verification, Validation, and Transfer. Documents exit criteria status, open actions, risk posture, and the go or no-go recommendation.</div>
+        <div class="art-reflect">No phase advances without resolved open items and documented approval from the review board.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/PhaseGate.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>Gate Review
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128193;</div><span class="badge bd-dark">Design History</span></div>
+        <div class="art-title">Design History File Index</div>
+        <div class="art-desc">Master index of the Design History File cataloguing all design control records — user needs, design inputs, design outputs, design reviews, verification, validation, and design transfer documents.</div>
+        <div class="art-reflect">An FDA investigator reviews this first. A clean, complete DHF index signals a controlled design process before a single underlying document is opened.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/DHF_Index.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>DHF Index
+          </a>
+        </div>
+      </div>
+
+      <div class="art-card">
+        <div class="art-top"><div class="art-icon">&#128260;</div><span class="badge bd-dark">Design Transfer</span></div>
+        <div class="art-title">Design Transfer Plan</div>
+        <div class="art-desc">Documents the transition of the design from R&amp;D to manufacturing — covering production procedures, Device Master Record readiness, manufacturing process validation, training, and transfer acceptance criteria.</div>
+        <div class="art-reflect">Often the most underdocumented phase of a device program. A robust transfer plan prevents the production nonconformances that trace back to incomplete handoffs from engineering.</div>
+        <div class="art-foot">
+          <a class="dl-btn" href="https://github.com/lodhiax/delivery-playbook/raw/main/docs/DesignTransfer.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 4h14v-2H5v2z"/></svg>Transfer Plan
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 09 EDUCATION -->
+  <section id="education">
+    <div class="sec-label"><span class="sec-num">09</span><h2>Education &amp; certifications</h2></div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-deg">Master of Science</div>
+        <div class="edu-field">Computer and Electrical Engineering</div>
+        <div class="edu-school">California State University, Northridge</div>
+        <div class="edu-note">Graduate study in signal processing, embedded systems, and control theory &mdash; the foundation behind the closed-loop tracking, fault-detection, and hardware/firmware integration work across every device program.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">Bachelor of Engineering</div>
+        <div class="edu-field">Electrical and Electronics Engineering</div>
+        <div class="edu-school">NED University of Engineering and Technology</div>
+        <div class="edu-note">Core training in circuits, systems, and electronics &mdash; the basis for hands-on circuit troubleshooting and electromechanical instrument integration.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">Certifications</div>
+        <div class="edu-field">PMP &middot; Lean Six Sigma &middot; ITIL &middot; AWS Certified Cloud Practitioner &middot; Scrum</div>
+        <div class="edu-school">Professional credentials</div>
+        <div class="edu-note">Six Sigma DMAIC underpins the supplier qualification and Gauge R&amp;R work; PMP supports phase-gate and verification planning across concurrent engineering programs.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 TOOLS -->
+  <section id="technology">
+    <div class="sec-label"><span class="sec-num">10</span><h2>Engineering tools</h2></div>
+    <div class="comp-wrap">
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Modeling, Analysis &amp; Test</div>
+        <div class="comp-item"><span class="comp-dot"></span>MATLAB</div>
+        <div class="comp-item"><span class="comp-dot"></span>LabVIEW</div>
+        <div class="comp-item"><span class="comp-dot"></span>Python</div>
+        <div class="comp-item"><span class="comp-dot"></span>System Modeling &amp; Analysis</div>
+        <div class="comp-item"><span class="comp-dot"></span>Test &amp; Measurement Automation</div>
+        <div class="comp-item"><span class="comp-dot"></span>Device Emulators / QTP Automation</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Requirements &amp; Lifecycle Management</div>
+        <div class="comp-item"><span class="comp-dot"></span>IBM Rational DOORS</div>
+        <div class="comp-item"><span class="comp-dot"></span>Jama Connect</div>
+        <div class="comp-item"><span class="comp-dot"></span>Caliber and Blueprint</div>
+        <div class="comp-item"><span class="comp-dot"></span>TargetProcess and Tuleap</div>
+        <div class="comp-item"><span class="comp-dot"></span>Traceability Matrices (IOVV / RTM)</div>
+      </div>
+      <div class="comp-cluster">
+        <div class="comp-cluster-title">Engineering Collaboration</div>
+        <div class="comp-item"><span class="comp-dot"></span>Jira and Confluence</div>
+        <div class="comp-item"><span class="comp-dot"></span>MS Project</div>
+        <div class="comp-item"><span class="comp-dot"></span>SharePoint and Office 365</div>
+        <div class="comp-item"><span class="comp-dot"></span>Power BI</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>Atif Lodhi</span> &nbsp;&middot;&nbsp; Medical Device Systems Engineering &nbsp;&middot;&nbsp; lodhiax@gmail.com
+</footer>
+
+<script>
+const phases = [
+  {
+    icon: "📋", tag: "Gate 1",
+    lbl: "Phase 01 — Requirements and planning",
+    title: "Design inputs and regulatory strategy",
+    body: "Establishes project scope, regulatory strategy, and user requirements, translating clinical and patient needs into unambiguous, testable engineering specifications that anchor everything downstream.",
+    inputs: ["Market Requirements Document (MRD)", "User Needs Document", "Intended Use Statement", "Regulatory Strategy (510(k) vs PMA)"],
+    outputs: ["Design and Development Plan (DDP)", "Product Requirements / Design Inputs", "Risk Management Plan and Hazard Analysis (ISO 14971)", "Software Requirements Specification (SRS)"],
+    gate: "Gate 1 — Design Input Review",
+    gateBody: "Verifies that inputs are comprehensive, unambiguous, non-conflicting, and fully testable."
+  },
+  {
+    icon: "📐", tag: "Gate 2",
+    lbl: "Phase 02 — Design and development",
+    title: "Design outputs, architecture, and prototypes",
+    body: "Translates approved design inputs into mechanical, electrical, and software design outputs — blueprints, code, physical architecture, and early proof-of-concept prototypes — with traceability holding from every input to its output.",
+    inputs: ["Approved Product Requirements / Design Inputs", "Active Risk Management Plan and Hazard Analysis"],
+    outputs: ["Mechanical Drawings, CAD, Schematics, BOM", "Software Architecture and Detailed Design (SDD)", "Pilot Development Prototypes", "Draft IFU, Manuals, and Labeling", "Design Traceability Matrix framework"],
+    gate: "Gate 2 — Design Output Review",
+    gateBody: "Confirms the physical and digital design package meets all design input specifications."
+  },
+  {
+    icon: "🔬", tag: "Gate 3",
+    lbl: "Phase 03 — Verification and bench testing",
+    title: "Proving the device was built right",
+    body: "Rigorous lab-based engineering evaluation proving the design outputs match the approved inputs — did we build the device right? Spans mechanical stress, electrical safety, biocompatibility, software regression, and human factors.",
+    inputs: ["Approved Design Outputs", "Master Verification Plan (MVP)", "Final Labeling and Draft IFU"],
+    outputs: ["Verification Protocols", "Executed Verification Reports (IEC 60601, biocompatibility, mechanical)", "Software Verification / Regression Reports", "Human Factors and Usability Reports", "Traceability Matrix — 100% verification coverage"],
+    gate: "Gate 3 — Design Verification Review",
+    gateBody: "Confirms all bench and lab testing passed with no unresolved discrepancies."
+  },
+  {
+    icon: "🏭", tag: "Gate 4",
+    lbl: "Phase 04 — Design transfer and line validation",
+    title: "Validating production and Beta build",
+    body: "Transitions the finalized design into manufacturing — validating production lines, training operators, and generating production-equivalent Alpha and clinical-ready Beta devices under full QMS control.",
+    inputs: ["Approved Verification Package", "Manufacturing Process Flows, SOPs, Tooling Specs"],
+    outputs: ["Line Validation (IQ / OQ / PQ) Protocols and Reports", "Internal Alpha Releases", "Clinical-Ready Beta Releases", "Operator Training Records", "Draft Device Master Record (DMR)"],
+    gate: "Gate 4 — Design Transfer Review",
+    gateBody: "Certifies production lines are validated, operators trained, and Beta units authorized for human clinical exposure."
+  },
+  {
+    icon: "🏥", tag: "Gate 5",
+    lbl: "Phase 05 — Clinical trials and regulatory submission",
+    title: "Proving the right device was built",
+    body: "Deploys production-equivalent Beta devices into clinical studies to confirm the device meets real clinical needs — did we build the right device? — and compiles the evidence into the FDA submission dossier.",
+    inputs: ["Validated Beta Devices", "Approved Clinical Protocol / FDA IDE"],
+    outputs: ["Clinical Trial Final Study Report", "Design Validation Report", "Finalized Traceability Matrix (needs → validation)", "510(k) Notification or PMA Application"],
+    gate: "Gate 5 — Regulatory and Validation Review",
+    gateBody: "Evaluates clinical validation safety metrics and locks the Design History File (DHF) while awaiting the FDA decision."
+  },
+  {
+    icon: "📦", tag: "Gate 6",
+    lbl: "Phase 06 — Commercial production and post-market",
+    title: "Clearance, release, and surveillance",
+    body: "On FDA clearance, the device enters commercial production and distribution, with active post-market surveillance and formal change control governing safety performance across the full product lifecycle.",
+    inputs: ["Closed Design History File (DHF)", "Locked Device Master Record (DMR)"],
+    outputs: ["FDA Clearance Letter / Approval", "Commercial Product Release Authorization", "Device History Records (DHR)", "Post-Market Surveillance (Complaints, CAPA, Adverse Events)", "Design Change Control Workflows"],
+    gate: "Gate 6 — Commercial Sustaining Review",
+    gateBody: "Authorizes ongoing commercial sales and hands oversight to sustaining engineering and quality surveillance teams."
+  }
+];
+
+function selectPhase(i) {
+  document.querySelectorAll('.phase').forEach((p, j) => p.classList.toggle('active', j === i));
+  const d = phases[i];
+  document.getElementById('detail-panel').innerHTML = `
+    <div class="dp-header">
+      <div class="dp-icon">${d.icon}</div>
+      <div style="flex:1">
+        <div class="dp-phase-lbl">${d.lbl}</div>
+        <div class="dp-title">${d.title}</div>
+      </div>
+      <span class="badge bd-dark">${d.tag}</span>
+    </div>
+    <div class="dp-body">${d.body}</div>
+    <div class="ps-label">Input deliverables</div>
+    <div class="pill-list" style="margin-bottom:14px">${d.inputs.map(a => `<span class="pill">${a}</span>`).join('')}</div>
+    <div class="ps-label">Output deliverables</div>
+    <div class="pill-list">${d.outputs.map(g => `<span class="pill gov">${g}</span>`).join('')}</div>
+    <div class="dp-gate">
+      <div class="dp-gate-icon">&#9670;</div>
+      <div>
+        <div class="dp-gate-lbl">${d.gate}</div>
+        <div class="dp-gate-txt">${d.gateBody}</div>
+      </div>
+    </div>
+  `;
+}
+
+selectPhase(0);
+</script>
+</body>
+</html>
