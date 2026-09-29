@@ -443,6 +443,51 @@
     .phase:nth-child(even) { border-right: none; }
     .case-grid, .art-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── Header: scan layer ── */
+  .h-who { margin: 0 0 10px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #d5dde2; font-weight: 500; }
+  header .h-sub { margin-top: 10px; font-size: 15px; color: #b3c0c7; max-width: 600px; }
+  header .h-sub strong { color: #fff; font-weight: 500; }
+  .h-cos { display: flex; flex-wrap: wrap; gap: 0; margin: 20px 0 16px; border: 1px solid rgba(147,167,181,0.22); border-radius: 6px; max-width: 820px; }
+  .h-co { flex: 1 1 150px; padding: 11px 14px; border-right: 1px solid rgba(147,167,181,0.22); display: flex; flex-direction: column; gap: 2px; }
+  .h-co:last-child { border-right: none; }
+  .h-co b { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #fff; }
+  .h-co span { font-size: 11.5px; color: #9aa9b1; }
+  header .pill-row { margin-top: 10px; align-items: center; }
+  .pill-lbl { width: 100px; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #74879a; font-weight: 600; }
+  .metrics-strip .mc-lbl { font-size: 11px; line-height: 1.45; color: #aebcc4; }
+  @media (max-width: 680px) {
+    .h-co { flex-basis: 100%; border-right: none; border-bottom: 1px solid rgba(147,167,181,0.22); }
+    .h-co:last-child { border-bottom: none; }
+    .pill-lbl { width: 100%; }
+  }
+
+  /* ── Click-to-expand cards ── */
+  .xp-card { cursor: pointer; transition: box-shadow 0.2s, border-color 0.2s; }
+  .xp-card:hover { box-shadow: 0 4px 18px rgba(35,42,50,0.08); }
+  .xp-card:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
+  .xp-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .xp-more > .xp-inner { overflow: hidden; min-height: 0; }
+  .xp-card.xp-open .xp-more { grid-template-rows: 1fr; }
+  .xp-hint { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ac2); font-weight: 600; user-select: none; }
+  .xp-hint::after { content: '+'; font-size: 14px; line-height: 1; transition: transform 0.2s; }
+  .xp-card.xp-open .xp-hint::after { transform: rotate(45deg); }
+  .prod-card > .xp-hint { margin: 0; padding: 10px 20px 12px; }
+  @media print { .xp-more { grid-template-rows: 1fr !important; } .xp-hint { display: none; } }
+
+  /* ── Header company boxes jump to the full role ── */
+  .h-co { cursor: pointer; transition: background 0.2s; }
+  .h-co:hover, .h-co:focus-visible { background: rgba(147,167,181,0.12); outline: none; }
+  .h-co b::after { content: ' \2192'; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #74879a; }
+  .tl-card { scroll-margin-top: 64px; }
+
+  /* ── Header fact lines ── */
+  .h-fact { display: flex; align-items: baseline; gap: 0; margin-top: 12px; max-width: 820px; }
+  .h-fact .pill-lbl { flex: none; }
+  .h-fact p { font-size: 13.5px; line-height: 1.6; color: #b3c0c7; }
+  .h-fact p strong { color: #e4e9ec; font-weight: 500; }
+  header .h-sub + .h-fact { margin-top: 18px; }
+  @media (max-width: 680px) { .h-fact { flex-direction: column; gap: 2px; } }
 </style>
 </head>
 <body>
@@ -452,11 +497,23 @@
   <div class="h-inner">
     <div>
       <div class="eyebrow">Medical Device Systems Engineering &nbsp;&middot;&nbsp; Optical &amp; Electromechanical Instruments &nbsp;&middot;&nbsp; INCOSE Practice</div>
-      <div class="h-name">Architect.<br>Integrate.<br><span>Verify.</span></div>
-      <p class="h-sub">Systems engineer with 20+ years architecting, integrating, and verifying complex optical and electromechanical medical instruments across Class I, II, and III devices &mdash; from Medtronic MiniMed closed-loop insulin delivery to BD flow-cytometry IVD platforms and Abbott ophthalmic laser systems. Hands-on from concept through design transfer, and the first call when a system fails.</p>
+      <div class="h-who">Atif Lodhi</div>
+      <div class="h-name">Architect with intent.<br>Integrate with discipline.<br><span>Deliver with evidence.</span></div>
+      <p class="h-sub">Systems engineer with <strong>20+ years</strong> architecting, integrating, and verifying complex optical and electromechanical medical instruments across <strong>Class I, II, and III</strong> devices. Hands-on from concept through design transfer, and the first call when a system fails.</p>
+      <div class="h-fact"><span class="pill-lbl">Industry</span><p>Developing and commercializing <strong>robotic surgical laser systems, diagnostic instrument platforms and connected therapy devices</strong> used worldwide by hospitals, clinical and diagnostic laboratories, and patients at home.</p></div>
+      <div class="h-fact"><span class="pill-lbl">Regulatory</span><p>Full design-control life cycle under <strong>FDA 21 CFR 820, ISO 13485, ISO 14971, IEC 60601, IEC 62304 and IEC 62366</strong>, through 510(k) clearance and design transfer.</p></div>
+      <div class="h-cos">
+        <div class="h-co"><b>Medtronic MiniMed</b><span>Closed-loop insulin delivery</span></div>
+        <div class="h-co"><b>BD</b><span>Flow-cytometry IVD platforms</span></div>
+        <div class="h-co"><b>Abbott</b><span>Ophthalmic laser systems</span></div>
+        <div class="h-co"><b>Creatics</b><span>Critical care beds, insulin meter, pulse oximeter, Epic EHR, LIMS</span></div>
+      </div>
       <div class="pill-row">
+        <span class="pill-lbl">Education</span>
         <span class="cred-pill">MS Computer / Electrical Eng &middot; CSUN</span>
-        <span class="cred-pill">ISO 14971 &middot; IEC 60601</span>
+      </div>
+      <div class="pill-row">
+        <span class="pill-lbl">Certified</span>
         <span class="cred-pill">Lean Six Sigma</span>
         <span class="cred-pill">PMP Certified</span>
         <span class="cred-pill">ITIL Foundation</span>
@@ -585,7 +642,17 @@
             <span class="badge bd-gray">7 Years</span>
           </div>
           <p class="tl-body">Serve as senior technical authority across 10+ engineering programs, stepping hands-on into system architecture and troubleshooting when issues cut across electrical, mechanical, optical, and embedded domains, cutting escalations by 35 percent. Own end-to-end system architecture and system-level requirements, decomposing customer and product needs into testable specifications and interface control definitions, and lead trade studies across performance, reliability, cost, and risk to guide design decisions. Author system-level documentation that organizes architecture, defines integration strategy, and mitigates risk, and coordinate technical design reviews (SRR, PDR, CDR) with engineering, quality, manufacturing, and suppliers to close open technical issues. Instituted reliability and delivery-assurance practices, verification planning, and phase-gate reviews across a portfolio up to $55M, standardizing requirements and risk traceability, design-review, and release governance &mdash; lifting first-pass verification and on-time delivery from 72 to 90 percent.</p>
-          <div class="tl-tags">
+          <div style="margin-top:10px">
+            <div class="prod-role-label">Products</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span class="tl-tag">Critical Care Beds</span>
+              <span class="tl-tag">Insulin Meter</span>
+              <span class="tl-tag">Pulse Oximeter</span>
+              <span class="tl-tag">Epic EHR</span>
+              <span class="tl-tag">Laboratory Information Management System (LIMS)</span>
+            </div>
+          </div>
+          <div class="tl-tags" style="margin-top:10px">
             <span class="tl-tag">INCOSE Systems Engineering</span>
             <span class="tl-tag">System Architecture</span>
             <span class="tl-tag">Interface Control</span>
@@ -1492,6 +1559,76 @@ function selectPhase(i) {
 }
 
 selectPhase(0);
+</script>
+
+<script>
+/* Click-to-expand cards: headline stays visible, details open on click. */
+(function () {
+  var configs = [
+    { card: '.tl-card',   box: null,         keep: '.tl-role, .tl-co, .tl-meta' },
+    { card: '.prod-card', box: null,         keep: '.prod-header, .prod-footer' },
+    { card: '.case-card', box: '.case-body', keep: '.case-hd, .case-title, .cb-label.outc, .cb-outcome' },
+    { card: '.art-card',  box: null,         keep: '.art-top, .art-title, .art-foot' }
+  ];
+  configs.forEach(function (c) {
+    document.querySelectorAll(c.card).forEach(function (card) {
+      var box = c.box ? card.querySelector(c.box) : card;
+      if (!box) return;
+      var hide = Array.prototype.filter.call(box.children, function (el) { return !el.matches(c.keep); });
+      if (!hide.length) return;
+      var more = document.createElement('div'); more.className = 'xp-more';
+      var inner = document.createElement('div'); inner.className = 'xp-inner';
+      more.appendChild(inner);
+      box.insertBefore(more, hide[0]);
+      hide.forEach(function (el) { inner.appendChild(el); });
+      var hint = document.createElement('div'); hint.className = 'xp-hint'; hint.textContent = 'Show details';
+      var foot = box.querySelector(':scope > .art-foot');
+      if (foot) box.insertBefore(hint, foot); else card === box ? card.appendChild(hint) : box.appendChild(hint);
+      card.classList.add('xp-card');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-expanded', 'false');
+      function toggle() {
+        var open = card.classList.toggle('xp-open');
+        card.setAttribute('aria-expanded', open ? 'true' : 'false');
+        hint.textContent = open ? 'Hide details' : 'Show details';
+      }
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('a, button')) return;
+        if (window.getSelection && String(window.getSelection()).length) return;
+        toggle();
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.target !== card) return;
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+/* Header company boxes: click to jump to that role in the career timeline and open it. */
+(function () {
+  var keys = { 'Medtronic MiniMed': 'Medtronic', 'BD': 'Becton', 'Abbott': 'Abbott', 'Creatics': 'Creatics' };
+  document.querySelectorAll('.h-co').forEach(function (box) {
+    var name = box.querySelector('b').textContent.trim();
+    var key = keys[name] || name;
+    var card = Array.prototype.find.call(document.querySelectorAll('.tl-card'), function (c) {
+      var co = c.querySelector('.tl-co'); return co && co.textContent.indexOf(key) !== -1;
+    });
+    if (!card) return;
+    box.setAttribute('tabindex', '0');
+    box.setAttribute('role', 'link');
+    box.setAttribute('title', 'See the full ' + name + ' role');
+    function go() {
+      if (!card.classList.contains('xp-open')) card.click();
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    box.addEventListener('click', go);
+    box.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+})();
 </script>
 </body>
 </html>
